@@ -1,0 +1,12 @@
+name = "geo"
+type = "javascript"
+
+[env.staging]
+name = "staging-geo"
+vars = { ENVIRONMENT = "staging" }
+workers_dev = true
+
+[env.prod]
+name = "prod-geo"
+vars = { ENVIRONMENT = "production" }
+route = "geo.erfianugrah.com/*"
