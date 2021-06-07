@@ -50,6 +50,6 @@ async function handleRequest(request) {
         </body>`
 
     let response = new Response(html, newResponse)
-    response.headers.set("content-type", "text/html;charset=UTF-8")
+    response.headers.set("content-type", "text/plain")
     return response
 }

@@ -9,4 +9,4 @@ workers_dev = true
 [env.prod]
 name = "prod-geo"
 vars = { ENVIRONMENT = "production" }
-route = "geo.erfianugrah.com/*"
+route = "erfianugrah.com/geo"
