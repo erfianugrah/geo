@@ -5,9 +5,9 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
     let html_style = "body {padding:6em; font-family: sans-serif;} h1 {color:#f6821f} h2 {color:#f6821f}"
 
-    let newResponse = await fetch(request)
-    let requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
-    let responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
+    const newResponse = await fetch(request)
+    const requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
+    const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
 
     let list = ''
 
