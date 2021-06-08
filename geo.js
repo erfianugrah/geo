@@ -50,7 +50,7 @@ async function handleRequest(request) {
         </body>`
 
     let response = new Response(html, newResponse)
-    response.headers.set("content-type", "text/html;charset=UTF-8")
     response.headers.set("cf-edge-cache", "no-cache")
+    response.headers.set("content-type", "text/html;charset=UTF-8")
     return response
 }
