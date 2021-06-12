@@ -4,9 +4,9 @@ addEventListener("fetch", (event) => {
 
 async function handleRequest(request) {
     let html_style = "body {padding:6em; font-family: sans-serif;} h1 {color:#f6821f} h2 {color:#f6821f}"
-
+    
     let list = ''
-
+    
     let html_content = [
         `IP: ${request.headers.get('cf-connecting-ip')}`,
         `ASN: ${request.cf.asn}`,
@@ -45,11 +45,11 @@ async function handleRequest(request) {
             <pre>${responseHeaders}</pre>
         </body>`
 
-    let newResponse = await fetch(html, request)
+    let newResponse = await fetch(request)
     const requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
     const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
 
-    let response = new Response(newResponse.body, newResponse)
+    let response = new Response(html, newResponse.body, newResponse)
     response.headers.set("cf-edge-cache", "no-cache")
     response.headers.set("content-type", "text/html;charset=UTF-8")
     return response
