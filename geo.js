@@ -5,10 +5,6 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
     let html_style = "body {padding:6em; font-family: sans-serif;} h1 {color:#f6821f} h2 {color:#f6821f}"
 
-    const newResponse = await fetch(html, request)
-    const requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
-    const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
-
     let list = ''
 
     let html_content = [
@@ -48,6 +44,10 @@ async function handleRequest(request) {
         <h2>Response Headers</h2>
             <pre>${responseHeaders}</pre>
         </body>`
+
+    let newResponse = await fetch(html, request)
+    const requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
+    const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
 
     let response = new Response(newResponse.body, newResponse)
     response.headers.set("cf-edge-cache", "no-cache")
