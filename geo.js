@@ -27,6 +27,7 @@ async function handleRequest(request) {
         `Region Code: ${request.cf.regionCode}`,
         `Time-zone: ${request.cf.timezone}`,
         `Device: ${request.headers.get('cf-device-type')}`
+        `CF-Ray: ${request.headers.get('cf-ray')}`
     ]
 
     html_content.forEach(function (param) {
