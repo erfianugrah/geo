@@ -11,7 +11,8 @@ async function handleRequest(request) {
     let html_style = "body {padding:6em; font-family: sans-serif;} h1 {color:#f6821f} h2 {color:#f6821f}"
     
     let list = ''
-    
+    let newRequest = new Request(request)
+
     let html_content = [
         `IP: ${request.headers.get('cf-connecting-ip')}`,
         `ASN: ${request.cf.asn}`,
@@ -26,8 +27,8 @@ async function handleRequest(request) {
         `Region: ${request.cf.region}`,
         `Region Code: ${request.cf.regionCode}`,
         `Time-zone: ${request.cf.timezone}`,
-        `Device: ${request.headers.get('cf-device-type')}`
-        `CF-Ray: ${request.headers.get('cf-ray')}`
+        `Device: ${newRequest.headers.get('cf-device-type')}`
+        `CF-Ray: ${newRequest.headers.get('cf-ray')}`
     ]
 
     html_content.forEach(function (param) {
