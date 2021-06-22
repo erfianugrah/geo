@@ -5,7 +5,11 @@ addEventListener("fetch", (event) => {
 async function handleRequest(request) {
 
     let newResponse = await fetch(request)
-    const requestHeaders = JSON.stringify(Object.fromEntries(request.headers), null, 2)
+    let subrequest = new Request(newResponse, request)
+
+    subrequest.headers.set("subrequest-ray", newResponse.headers.get("cf-ray"))
+
+    const requestHeaders = JSON.stringify(Object.fromEntries(subrequest.headers), null, 2)
     const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
 
     let html_style = "body {padding:6em; font-family: sans-serif;} h1 {color:#f6821f} h2 {color:#f6821f}"
@@ -26,8 +30,7 @@ async function handleRequest(request) {
         `Region: ${request.cf.region}`,
         `Region Code: ${request.cf.regionCode}`,
         `Time-zone: ${request.cf.timezone}`,
-        `Device: ${request.headers.get('cf-device-type')}`
-        `CF-Ray: ${request.headers.get('cf-ray')}`
+        `Device: ${request.headers.get("cf-device-type")}`
     ]
 
     html_content.forEach(function (param) {
@@ -51,7 +54,7 @@ async function handleRequest(request) {
             <pre>${responseHeaders}</pre>
         </body>`
 
-    let response = new Response(html, newResponse.body, newResponse)
+    let response = new Response(html, subrequest.body)
     response.headers.set("cf-edge-cache", "no-cache")
     response.headers.set("content-type", "text/html;charset=UTF-8")
     return response
