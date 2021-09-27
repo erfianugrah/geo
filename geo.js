@@ -4,10 +4,14 @@ addEventListener("fetch", (event) => {
 
 async function handleRequest(request) {
 
-    let newResponse = await fetch(request)
-    let subrequest = new Request(newResponse, request)
+    let subrequest = new Request(request)
+    let str = "xff"
+    const xff = str.toUpperCase()
+    subrequest.headers.set(xff, request.headers.get("cf-connecting-ip")
+    subrequest.headers.set("subrequest-ray", request.headers.get("cf-ray"))
+    subrequest.headers.set("X-Real-IP", request.headers.get("cf-connecting-ip"))
 
-    subrequest.headers.set("subrequest-ray", newResponse.headers.get("cf-ray"))
+    let newResponse = await fetch(subrequest)
 
     const requestHeaders = JSON.stringify(Object.fromEntries(subrequest.headers), null, 2)
     const responseHeaders = JSON.stringify(Object.fromEntries(newResponse.headers), null, 2)
@@ -54,7 +58,7 @@ async function handleRequest(request) {
             <pre>${responseHeaders}</pre>
         </body>`
 
-    let response = new Response(html, subrequest.body)
+    let response = new Response(html, newResponse.body, newResponse)
     response.headers.set("cf-edge-cache", "no-cache")
     response.headers.set("content-type", "text/html;charset=UTF-8")
     return response
