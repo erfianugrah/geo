@@ -7,7 +7,7 @@ async function handleRequest(request) {
     let subrequest = new Request(request)
     let str = "xff"
     const xff = str.toUpperCase()
-    subrequest.headers.set(xff, request.headers.get("cf-connecting-ip")
+    subrequest.headers.set(xff, request.headers.get("cf-connecting-ip"))
     subrequest.headers.set("subrequest-ray", request.headers.get("cf-ray"))
     subrequest.headers.set("X-Real-IP", request.headers.get("cf-connecting-ip"))
 
