@@ -1,5 +1,6 @@
 name = "geo"
 type = "javascript"
+compatibility_date = "2021-10-25"
 
 [env.staging]
 name = "staging-geo"
